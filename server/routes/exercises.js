@@ -15,7 +15,7 @@ const router = express.Router()
 router.get('/', getExercises)
 
 // get one exercise
-router.get('/":id', getExercise)
+router.get('/:id', getExercise)
 
 // update an exercise
 router.patch('/:id', updateExercise)
@@ -25,3 +25,5 @@ router.delete('/:id', deleteExercise)
 
 // create an exercise
 router.post('/', createExercise)
+
+module.exports = router
