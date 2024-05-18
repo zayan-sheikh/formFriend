@@ -13,11 +13,9 @@ const exerciseSchema = new Schema({
     },
     done: {
         type: Boolean,
-        required: true
     },
     accuracy: {
         type: Number,
-        required: true
     }
 }, { timestamps: true })
 
