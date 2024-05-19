@@ -1,3 +1,8 @@
+:root {
+  --gradient: linear-gradient(90deg,#AB77FF, #00FF75);
+  --darkgray: rgb(22, 22, 22);
+} 
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,15 +10,56 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  background-color: rgb(41, 41, 41);
 }
 
 .App {
   text-align: center;
   justify-content: center;
-  margin-top: 50vh;
+  margin-top: 0vh;
+}
+
+.home {
+  display: flex;
+}
+
+header {
+  background-color: var(--darkgray);
+  width: 100%;
+}
+
+header a {
+  text-decoration: none;
+  color:rgb(255, 255, 255);
+  font-size: 15pt;
+}
+
+header .navBar {
+  width: fit-content;
+  height: 60px;
+  margin: 0 auto;
+  padding: 0.1vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .underlayBar {
+ width: 100%;
+ margin: 0;
+ padding: 3px 0vh;
+ background: var(--gradient);
+}
+
+.mainPanel {
+  flex-basis: 50vw;
+  color:aliceblue;
+  background-color: var(--darkgray);
+  padding: 50px;
+  border-radius: 40px;
+}
+
+.animPanel {
+  flex-basis: 50vw;
+  color: azure;
 }
