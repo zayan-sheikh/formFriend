@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squat Form Analyzer</title>
+</head>
+<body>
+    <h1>Squat Form Analyzer</h1>
+    <h2>Upload Side Squat Video:</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file"> <!-- Change to name="file" -->
+        <input type="hidden" name="squat_type" value="side">
+        <input type="submit" value="Upload Side Squat Video">
+    </form>
+
+    <h2>Upload Front Squat Video:</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file"> <!-- Change to name="file" -->
+        <input type="hidden" name="squat_type" value="front">
+        <input type="submit" value="Upload Front Squat Video">
+    </form>
+
+    <!-- {% if video_url %}
+        <h2>Processed Video:</h2>
+        <video width="640" height="480" controls>
+            <source src="{{ video_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% endif %} -->
+</body>
+</html>
