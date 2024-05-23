@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-
+import Spline from '@splinetool/react-spline';
 // components
 
 const Home = () => {
@@ -8,11 +8,11 @@ const Home = () => {
 return (
     <div className='home'>
         <div className='mainPanel'>
-            Home
+            <h1>Your Goals</h1>
         </div>
 
         <div className='animPanel'>
-            Test
+            <Spline scene="https://prod.spline.design/VhYGzYeJJIhpmxM3/scene.splinecode" />
         </div>
     </div>
 )}
