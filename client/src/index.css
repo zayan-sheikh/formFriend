@@ -17,13 +17,11 @@ body {
 .App {
   text-align: center;
   justify-content: center;
-  margin-top: 0vh;
 }
 
 .home {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 50%;
   justify-content: center;
   align-items: center;
 }
@@ -57,7 +55,6 @@ header .underlayBar {
 }
 
 .mainPanel {
-  flex-basis: 50vw;
   color:aliceblue;
   background-color: var(--darkgray);
   padding: 50px;
@@ -71,4 +68,14 @@ h1 {
 .animPanel {
   flex-basis: 50vw;
   color: azure;
+}
+
+.exercise-listing {
+  background: var(--gradient);
+  color: var(--darkgray);
+  
+  text-align: left;
+  border-radius: 30px;
+  padding: 0px;
+  font-size: 25pt;
 }
