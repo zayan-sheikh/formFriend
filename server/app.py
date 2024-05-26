@@ -1,10 +1,14 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, jsonify, send_file
 import cv2
 import mediapipe as mp
 import numpy as np
 import os
+from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize Mediapipe pose detection
 mp_drawing = mp.solutions.drawing_utils
@@ -22,14 +26,59 @@ def calculate_angle(a, b, c):
     return angle
 
 # Function to process video and provide feedback
- #def process_video(file_path):
-    
+def process2_side_squat_video(file_path):
+    print('processing vid')
+    cap = cv2.VideoCapture(file_path)
+    feedback = 'hi'
+    filename, extension = os.path.splitext(os.path.basename(file_path))
+    output_path = os.path.join('static', 'videos', f'{filename}_output{extension}')
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_path, fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
-    return output_path
+    with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
+            image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            image.flags.writeable = False
+            results = pose.process(image)
+            image.flags.writeable = True
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+            try:
+                print('processing landmarks')
+                landmarks = results.pose_landmarks.landmark
+                shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+                hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x, landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+                knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x, landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
+                ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x, landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+                angle = calculate_angle(shoulder, hip, knee)
+                angle2 = calculate_angle(hip, knee, ankle)
+                angle_diff = angle - angle2
+                if angle2 < 80:
+                    if angle_diff < -10:
+                        feedback = 'You are leaning forward, keep chest up'
+                    else:
+                        feedback = 'goodform'
+                else:
+                    feedback = ''
+                print('still processing')
+                cv2.rectangle(image, (0,0), (400,60), (245,117,16), -1)
+                cv2.putText(image, "FEEDBACK", (15,12), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
+                cv2.putText(image, str(feedback), (15,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
+            except:
+                pass
+            mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+            out.write(image)
+        cap.release()
+        out.release()
+        print(output_path)
+        return output_path
+
 def process_side_squat_video(file_path):
     # Implement side squat video processing logic here
     cap = cv2.VideoCapture(file_path)
-    feedback = 'hi'
+    print('processing vid')
     filename, extension = os.path.splitext(os.path.basename(file_path))
     output_path = os.path.join('static', 'videos', f'{filename}_output{extension}')
     #output_path = os.path.join('static', 'videos', 'output.mp4')
@@ -47,6 +96,7 @@ def process_side_squat_video(file_path):
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             try:
+                print('processing still')
                 landmarks = results.pose_landmarks.landmark
                 shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
                 hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x, landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
@@ -77,17 +127,15 @@ def process_side_squat_video(file_path):
         out.release()
         return output_path
 
-# Function to process front squat video and provide feedback
 def process_front_squat_video(file_path):
-    # Implement front squat video processing logic here
     pass
+from flask import Flask, jsonify
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+app = Flask(__name__)
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['post'])
 def upload_file():
+    print('got a post request')
     if 'file' not in request.files:
         return 'No file part'
     file = request.files['file']
@@ -107,7 +155,15 @@ def upload_file():
         #output_path = process_video(video_path)
         return send_file(output_path, as_attachment=True, download_name='output.mp4')
     
-if __name__ == "__main__":
-    if not os.path.exists('static/videos'):
-        os.makedirs('static/videos')
+        #send_file(output_path, as_attachment=True, download_name='output.mp4')
+        #return jsonify({'output_path': output_path}), 200
+    
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'OPTIONS, HEAD, GET, POST, PUT, DELETE'
+    return response
+
+if __name__ == '__main__':
     app.run(debug=True)
