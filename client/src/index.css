@@ -34,7 +34,7 @@ header {
 header a {
   text-decoration: none;
   color:rgb(255, 255, 255);
-  font-size: 15pt;
+  font-size: 20pt;
 }
 
 header .navBar {
@@ -58,7 +58,10 @@ header .underlayBar {
   color:aliceblue;
   background-color: var(--darkgray);
   padding: 50px;
+  padding-top: 5px;
   border-radius: 40px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  margin: 10%;
 }
 
 h1 {
@@ -73,9 +76,31 @@ h1 {
 .exercise-listing {
   background: var(--gradient);
   color: var(--darkgray);
-  
+  position: relative;
   text-align: left;
-  border-radius: 30px;
-  padding: 0px;
-  font-size: 25pt;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 15px;
+  font-size: 12pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.exercise-listing #check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  background: #222222;
+  padding: 10px;
+  border-radius: 10%;
+  color: #fcfcfc;
+}
+
+.uncheck-box {
+  background-color: var(--darkgray);
 }

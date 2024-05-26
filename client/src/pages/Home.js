@@ -24,13 +24,15 @@ const Home = () => {
     return (
         <div className='home'>
             <div className='mainPanel'>
+                <h1>Your Goals</h1>
                 {exercises && exercises.map(exercise => (
                     <ExerciseListing key={exercise._id} exercise={exercise}/>
                 ))}
             </div>
 
             <div className='animPanel'>
-                <Spline scene="https://prod.spline.design/VhYGzYeJJIhpmxM3/scene.splinecode" />
+                <Spline scene="https://prod.spline.design/90FsM3-eeYuQEEyR/scene.splinecode" />
+                <h2>Keep working on today's goals!</h2>
             </div>
         </div>
     )}
