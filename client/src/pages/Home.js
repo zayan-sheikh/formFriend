@@ -23,11 +23,14 @@ const Home = () => {
 
     return (
         <div className='home'>
-            <div className='mainPanel'>
-                <h1>Your Goals</h1>
-                {exercises && exercises.map(exercise => (
-                    <ExerciseListing key={exercise._id} exercise={exercise}/>
-                ))}
+            <div className='listing-container'>
+                
+                <div className='mainPanel'>
+                    <h1 className='listingHeader'>Your Goals</h1>
+                    {exercises && exercises.map(exercise => (
+                        <ExerciseListing key={exercise._id} exercise={exercise}/>
+                    ))}
+                </div>
             </div>
 
             <div className='animPanel'>
