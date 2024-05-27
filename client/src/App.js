@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import FormChecking from './pages/FormChecking';
 import Success from './pages/Success';
+import RepCounting from './pages/RepCounting';
+import RepCountingSuccess from './pages/RepCountingSuccess';
 
 import cors from 'cors';
 
@@ -25,6 +27,8 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/formChecking' element={<FormChecking />} />
             <Route path='/success' element={<Success />} />
+            <Route path='/repCounting' element={<RepCounting />} />
+            <Route path='/repCountingsuccess' element={<RepCountingSuccess />} />
           </Routes>
         </div>
       </BrowserRouter>
