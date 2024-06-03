@@ -59,9 +59,13 @@ header .underlayBar {
   background-color: var(--darkgray);
   min-width: 300px;
   padding: 10px;
+  padding-top: 15px;
   border-radius: 20px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
   position: relative;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
   
 }
 
@@ -124,4 +128,8 @@ h1 {
   display: flex;
   justify-content: center;
   
+}
+
+.exercise-listing {
+  background-color: #00FF75;
 }
