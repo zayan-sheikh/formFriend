@@ -8,6 +8,7 @@ const RepCountingSuccess = () => {
         <div>
             <h1>Upload Successful!</h1>
             <h1>{counter}</h1>
+            
            
             {/* Other success page content */}
         </div>

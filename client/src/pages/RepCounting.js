@@ -38,6 +38,23 @@ const RepCounting = () => {
     
             // Get the counter value from the response headers
             const counter = response.headers['counter'];
+                
+            const update = await fetch('http://localhost:4000/api/exercises/ID', { // INSERT ID HERE, MUST ADD AS A PARAMETER TO THIS PAGE
+                method: 'PATCH',
+                body: {repCount: counter},
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            })   
+
+            if (!update.ok) {
+                console.log('Failed to update rep count.')
+            }
+
+            if (update.ok) {
+                console.log('Rep count updated successfully.')
+            }
+        
             console.log('count was' + counter)
             // Navigate to the success page and pass the counter as a URL parameter
             navigate('/RepCountingSuccess', { state: { counter } });

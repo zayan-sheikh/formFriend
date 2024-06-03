@@ -79,7 +79,7 @@ const createExercise = async (req, res) => {
     }
 
     try {
-        const exercise = await Exercise.create({title, reps, done: false, accuracy: null})
+        const exercise = await Exercise.create({title, reps, done: false, accuracy: null, repCount: null})
         res.status(200).json(exercise)
     } catch (error) {
         res.status(400).json({error: error.message})

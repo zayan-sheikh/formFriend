@@ -12,10 +12,13 @@ const exerciseSchema = new Schema({
         required: true
     },
     done: {
-        type: Boolean,
+        type: Boolean
+    },
+    repCount: {
+        type: Number
     },
     accuracy: {
-        type: Number,
+        type: Number
     }
 }, { timestamps: true })
 
