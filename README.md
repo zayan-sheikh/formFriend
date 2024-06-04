@@ -11,3 +11,5 @@ TECH PROCESS: To identify the compensation, I used openCV and mediapipe to first
 To count reps: I first collected some data about landmarks and body coordinates by recoding myself do some squats. Based on this data, I training a machine learning model using algorithms such as Ridge, RandomForest, LogisticRegression and GradientBoosting models to predict if the user is in the down or up position. All algorithms had a good accuracy to I went ahead with the RandomForest to build my machine learning model.
 
 Demo:
+<img src="demo1.png" alt="Alt Text" width="600">
+<img src="demo2.png" alt="Alt Text" width="600">
